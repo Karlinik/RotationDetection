@@ -8,7 +8,8 @@ from __future__ import division, print_function, absolute_import
 import sys
 import xml.etree.cElementTree as ET
 import numpy as np
-import tensorflow as tf
+# import tensorflow as tf
+import tensorflow.compat.v1 as tf
 import glob
 import cv2
 import os
@@ -21,13 +22,13 @@ from utils.tools import makedirs, view_bar
 from libs.configs import cfgs
 from utils.order_points import re_order
 
-tf.app.flags.DEFINE_string('root_dir', '/data/dataset/DOTA2.0/crop/trainval/', 'root dir')
+tf.app.flags.DEFINE_string('root_dir', '/data/dataset/OPENPNP/trainval/', 'root dir')
 tf.app.flags.DEFINE_string('xml_dir', 'labeltxt', 'xml dir')
 tf.app.flags.DEFINE_string('image_dir', 'images', 'image dir')
 tf.app.flags.DEFINE_string('save_name', 'train', 'save name')
 tf.app.flags.DEFINE_string('save_dir', '../tfrecord/', 'save name')
 tf.app.flags.DEFINE_string('img_format', '.png', 'format of image')
-tf.app.flags.DEFINE_string('dataset', 'DOTA2.0', 'dataset')
+tf.app.flags.DEFINE_string('dataset', 'OPENPNP', 'dataset')
 FLAGS = tf.app.flags.FLAGS
 
 
@@ -88,6 +89,7 @@ def convert_pascal_to_tfrecord():
     xml_path = os.path.join(FLAGS.root_dir, FLAGS.xml_dir)
     image_path = os.path.join(FLAGS.root_dir, FLAGS.image_dir)
     save_path = os.path.join(FLAGS.save_dir, FLAGS.dataset + '_' + FLAGS.save_name + '.tfrecord')
+    print(FLAGS.save_dir)
     makedirs(FLAGS.save_dir)
 
     # writer_options = tf.python_io.TFRecordOptions(tf.python_io.TFRecordCompressionType.ZLIB)
@@ -99,8 +101,10 @@ def convert_pascal_to_tfrecord():
     pbar = tqdm(total=total_data)
     for count, xml in enumerate(all_xml):
 
-        img_name = xml.split('/')[-1].split('.')[0] + FLAGS.img_format
-        img_path = image_path + '/' + img_name
+        img_name = xml.split('\\')[-1].split('.')[0] + FLAGS.img_format
+        print(img_name)
+        img_path = image_path + '\\' + img_name
+        print(image_path)
 
         if not os.path.exists(img_path):
             print('{} is not exist!'.format(img_path))

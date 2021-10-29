@@ -1,0 +1,1 @@
+python convert_data_to_tfrecord.py --root_dir='..\..\data\dataset\OPENPNP\trainval_test' --xml_dir='labeltxt' --image_dir='images' --save_name='train' --img_format='.png' --dataset='OPENPNP'
