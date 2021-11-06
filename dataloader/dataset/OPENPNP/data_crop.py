@@ -248,7 +248,6 @@ jsons = [i for i in os.listdir(raw_label_dir) if 'json' in i]
 print('find image', len(images))
 print('find label', len(jsons))
 
-## find out how much can I crop the image
 stride_h, stride_w = 450, 450
 
 for idx, img in enumerate(images):

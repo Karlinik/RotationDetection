@@ -18,9 +18,6 @@ def format_label(input, x_c, y_c):
     min_pixel = 5
     format_data = []
 
-    # x_c = x_c - 45
-    # y_c = y_c - 45
-
     units_x, units_y = input['unitsPerPixel']
 
     x_dev = input['XDeviation']//units_x
@@ -30,8 +27,6 @@ def format_label(input, x_c, y_c):
 
     part_w = input['part']['size'][0]/units_x
     part_h = input['part']['size'][1]/units_y
-    # format_data.extend([part_w, part_h])
-    # format_data.extend([part_h, part_w])
 
     rotation = input['RDeviation']
     if rotation > 0:
@@ -110,8 +105,6 @@ jsons = [i for i in os.listdir(raw_label_dir) if 'json' in i]
 
 print('find image', len(images))
 print('find label', len(jsons))
-
-# TODO: crop?
 
 for idx, img in enumerate(images):
     # print(img)
